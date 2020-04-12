@@ -10,5 +10,5 @@ open class SimpleViewHolder<T, out V : ViewDataBinding>(itemView: View) :
     val viewDataBinding: V? = DataBindingUtil.bind(itemView)
 
     var item: T? = null
-    var isPayload: Boolean = false
+    var payloads: Any? = null
 }

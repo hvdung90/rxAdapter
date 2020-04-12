@@ -126,11 +126,24 @@ rxDataSource.updateDataSet(
   RxDataSource.TransactionTypes.DELETE
 )
 ```
+  If you want to update  a part of item without refreshing all item by payloads
+```kotlin
+rxDataSource.notifyItemChanged(position,Any)
+
+SimpleViewHolder.payloads != null
+```
+  If you want to add more data
+```kotlin
+var oldSize = rxDataSource.dataSet.size
+rxDataSource.updateDataSetMore(dataSet)
+var newSize = rxDataSource.dataSet.size
+rxDataSource.notifyItemRangeInserted(oldSize,newSize)
+```
 ## Download
 Repository available on jCenter
 
 ```Gradle
-implementation 'com.rx.android:rxrecycler-adapter:1.0.3'
+implementation 'com.rx.android:rxrecycler-adapter:1.0.9'
 ```
 *If the dependency fails to resolve, add this to your project repositories*
 ```Gradle

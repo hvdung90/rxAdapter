@@ -39,6 +39,7 @@ class RxDataSource<LayoutBinding : ViewDataBinding, DataType>(@LayoutRes private
     fun asObservable(): Observable<SimpleViewHolder<DataType, LayoutBinding>> {
         return rxAdapter.asObservable()
     }
+
     /***
      * For setting base dataSet
      */
@@ -47,6 +48,26 @@ class RxDataSource<LayoutBinding : ViewDataBinding, DataType>(@LayoutRes private
         return this
     }
 
+    fun updateDataSetMore(date: List<DataType>): RxDataSource<LayoutBinding, DataType> {
+        (this.dataSet as ArrayList).addAll(date)
+        return this
+    }
+
+
+    /***
+     * For setting base dataSet and update adapter
+     */
+    fun updateDataSet(oldPosition: Int, effectedItem: Int, transactionType: TransactionTypes): RxDataSource<LayoutBinding, DataType> {
+        when (transactionType) {
+            TransactionTypes.REPLACE_ALL -> notifyDataSetChanged()
+            TransactionTypes.MODIFY -> notifyItemChanged(effectedItem)
+            TransactionTypes.DELETE -> notifyItemRemoved(effectedItem)
+            TransactionTypes.ADD -> notifyItemInserted(effectedItem)
+            TransactionTypes.ADD_MUTIL -> notifyItemRangeInserted(oldPosition, effectedItem)
+            TransactionTypes.MODIFY_MUTIL -> notifyItemRangeChanged(oldPosition, effectedItem)
+        }
+        return this
+    }
 
     /***
      * For setting base dataSet and update adapter
@@ -61,6 +82,7 @@ class RxDataSource<LayoutBinding : ViewDataBinding, DataType>(@LayoutRes private
         }
         return this
     }
+
 
     /***
      * For updating Adapter
@@ -80,6 +102,11 @@ class RxDataSource<LayoutBinding : ViewDataBinding, DataType>(@LayoutRes private
         rxAdapter.notifyItemChanged(dataSet, position)
     }
 
+    private fun notifyItemChanged(position: Int, payloads: Any) {
+        //update the update
+        rxAdapter.notifyItemChanged(dataSet, position, payloads)
+    }
+
     private fun notifyItemRemoved(position: Int) {
         //update the update
         rxAdapter.notifyItemRemoved(dataSet, position)
@@ -88,6 +115,16 @@ class RxDataSource<LayoutBinding : ViewDataBinding, DataType>(@LayoutRes private
     private fun notifyItemInserted(position: Int) {
         //update the update
         rxAdapter.notifyItemInserted(dataSet, position)
+    }
+
+    private fun notifyItemRangeInserted(oldPointion: Int, position: Int) {
+        //update the update
+        rxAdapter.notifyItemRangeInserted(oldPointion, position)
+    }
+
+    private fun notifyItemRangeChanged(oldPointion: Int, position: Int) {
+        //update the update
+        rxAdapter.notifyItemRangeChanged(oldPointion, position)
     }
 
     // Transformation methods
@@ -192,7 +229,9 @@ class RxDataSource<LayoutBinding : ViewDataBinding, DataType>(@LayoutRes private
         REPLACE_ALL,
         DELETE,
         MODIFY,
-        ADD
+        ADD,
+        ADD_MUTIL,
+        MODIFY_MUTIL
     }
 
 }

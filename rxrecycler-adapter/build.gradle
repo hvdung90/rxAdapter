@@ -8,7 +8,7 @@ ext {
     // Where you will see your artifact in Bintray's web interface
     // The "bintrayName" should match the name of the Bintray repro.
     bintrayRepo = 'maven'
-    bintrayName = 'rxrecycler-adapter'
+    bintrayName = 'rxrecyclerView-adapter'
 
     // Maven metadata
     publishedGroupId = 'com.rx.android'
@@ -18,11 +18,15 @@ ext {
     artifact = 'rxrecycler-adapter'
 
     libraryDescription = 'Rx based generic RecyclerView Adapter Library.'
-    libraryVersion = '1.0.0'
+    libraryVersion = '1.0.9'
 
-    developerId = 'hvdung90'
+    developerId = 'hvdung-90'
     developerName = 'Dung Hoang Van'
     developerEmail = 'hvdung.90@gmail.com'
+
+    user = 'hvdung.90@gmail.com'// bintray username
+    apikey = '97ad6099fa3a47419d72d53225ee808e50189d5f' // Bintray profile key
+
 
 }
 
@@ -64,5 +68,3 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 
-apply from: 'https://raw.githubusercontent.com/attwellBrian/JCenter/master/installv1.gradle'
-apply from: 'https://raw.githubusercontent.com/attwellBrian/JCenter/master/bintrayv1.gradle'

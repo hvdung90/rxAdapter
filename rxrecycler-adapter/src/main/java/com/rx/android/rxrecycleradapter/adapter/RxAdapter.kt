@@ -42,7 +42,7 @@ internal class RxAdapter<DataType, LayoutBinding : ViewDataBinding>(@param:Layou
         super.onBindViewHolder(holder, position, payloads)
         if (payloads.isNotEmpty()) {
             holder.item = dataSet[position]
-            holder.isPayload = true
+            holder.payloads = payloads
             mPublishSubject.onNext(holder)
         } else super.onBindViewHolder(holder, position, payloads)
 
@@ -51,7 +51,7 @@ internal class RxAdapter<DataType, LayoutBinding : ViewDataBinding>(@param:Layou
     override fun onBindViewHolder(holder: SimpleViewHolder<DataType, LayoutBinding>,
                                   position: Int) {
         holder.item = dataSet[position]
-        holder.isPayload = false
+        holder.payloads = null
         mPublishSubject.onNext(holder)
     }
 
@@ -91,6 +91,12 @@ internal class RxAdapter<DataType, LayoutBinding : ViewDataBinding>(@param:Layou
     fun notifyItemRemoved(dataSet: List<DataType>, position: Int) {
         this.dataSet = dataSet
         notifyItemRemoved(position)
+    }
+
+    fun notifyItemChanged(dataSet: List<DataType>?, position: Int, payloads: Any) {
+        if (dataSet != null)
+            this.dataSet = dataSet
+        notifyItemChanged(position, payloads)
     }
 
 }
