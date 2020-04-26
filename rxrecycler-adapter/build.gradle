@@ -18,16 +18,13 @@ ext {
     artifact = 'rxrecycler-adapter'
 
     libraryDescription = 'Rx based generic RecyclerView Adapter Library.'
-    libraryVersion = '1.0.9'
+    libraryVersion = '1.1.0'
 
     developerId = 'hvdung-90'
     developerName = 'Dung Hoang Van'
     developerEmail = 'hvdung.90@gmail.com'
 
     user = 'hvdung.90@gmail.com'// bintray username
-    apikey = '97ad6099fa3a47419d72d53225ee808e50189d5f' // Bintray profile key
-
-
 }
 
 android {
@@ -66,5 +63,19 @@ dependencies {
     api 'io.reactivex.rxjava2:rxandroid:2.1.1'
     implementation "com.android.support:support-annotations:$support_version"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    api 'com.jcodecraeer:xrecyclerview:1.6.0'
 }
 
+Properties properties = new Properties()
+properties.load(rootProject.file('local.properties').newDataInputStream())
+
+
+
+apply from: 'https://raw.githubusercontent.com/attwellBrian/JCenter/master/installv1.gradle'
+apply from: 'https://raw.githubusercontent.com/attwellBrian/JCenter/master/bintrayv1.gradle'
+
+bintray {
+    user = properties.getProperty('user')
+    key = properties.getProperty('key')
+    configurations = ['archives']
+}

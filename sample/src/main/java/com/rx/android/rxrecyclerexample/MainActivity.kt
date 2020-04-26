@@ -1,11 +1,13 @@
 package com.rx.android.rxrecyclerexample
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.jakewharton.rxbinding.view.RxView
 import com.jakewharton.rxbinding.widget.RxTextView
 import com.rx.android.rxrecycleradapter.RxDataSource
 import com.rx.android.rxrecycleradapter.model.OnGetItemViewType
@@ -146,6 +148,10 @@ class MainActivity : AppCompatActivity() {
 
 
         itemTouchHelper.attachToRecyclerView(mActivityMainBinding.recyclerView)
+        RxView.clicks(mActivityMainBinding.btnLoad).subscribe {
+            var intent = Intent(this, Main2Activity::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun onDestroy() {
