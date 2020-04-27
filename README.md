@@ -141,7 +141,7 @@ rxDataSource.notifyItemRangeInserted(oldSize,newSize)
 Repository available on jCenter
 
 ```Gradle
-implementation 'com.rx.android:rxrecycler-adapter:1.0.9'
+implementation 'com.rx.android:rxrecycler-adapter:1.1.0'
 ```
 *If the dependency fails to resolve, add this to your project repositories*
 ```Gradle
